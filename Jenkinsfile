@@ -3,12 +3,11 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/sahil9186/Terraform.git'
-            }
-        }
+stage('Clone Repository') {
+    steps {
+        git branch: 'main', url: 'https://github.com/sahil9186/Terraform.git'
+    }
+}
 
         stage('Terraform Init') {
             steps {
