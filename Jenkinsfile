@@ -1,13 +1,19 @@
 pipeline {
-
     agent any
 
-    stages {
-stage('Clone Repository') {
-    steps {
-        git branch: 'main', url: 'https://github.com/sahil9186/Terraform.git'
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('aws-jenkins').usr
+        AWS_SECRET_ACCESS_KEY = credentials('aws-jenkins').psw
+        AWS_DEFAULT_REGION = 'ap-south-1'
     }
-}
+
+    stages {
+
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/sahil9186/Terraform.git'
+            }
+        }
 
         stage('Terraform Init') {
             steps {
@@ -32,7 +38,5 @@ stage('Clone Repository') {
                 sh 'terraform apply -auto-approve'
             }
         }
-
     }
-
 }
